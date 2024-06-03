@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="005d53a2-8741-4661-959b-e3237504edf9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/flowerbot/commands/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flowerbot/commands/start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flowerbot/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/flowerbot/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flowerbot/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/flowerbot/__main__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flowerbot/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/flowerbot/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +64,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/flowerbot" />
     </key>
   </component>
@@ -102,7 +109,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717442612485</updated>
-      <workItem from="1717442619777" duration="4872000" />
+      <workItem from="1717442619777" duration="8004000" />
     </task>
     <servers />
   </component>
@@ -113,6 +120,6 @@
     <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flowerbot$main.coverage" NAME="main Coverage Results" MODIFIED="1717442789958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flowerbot$main.coverage" NAME="main Coverage Results" MODIFIED="1717449924426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
