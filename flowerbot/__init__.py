@@ -1,3 +1,3 @@
-from flowerbot import commands
+from flowerbot import commands, middlewares
 
-dps = [*commands.dps]
+dps = [*middlewares.dps, *commands.dps]

@@ -1,3 +1,3 @@
-from . import start
+from . import start, catalog, settings
 
-dps = [start.dp]
+dps = [start.dp, catalog.dp, settings.dp]
