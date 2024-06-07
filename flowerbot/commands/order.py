@@ -9,22 +9,27 @@ from flowerbot.keyboards import cart, cart_order, menu
 dp = Dispatch()
 
 
+def get_products_text(cart: list[dict]) -> list[str, int | float, int | float]:
+    text, order_price, total_count = "", 0, 0
+    for i, product in enumerate(cart, 1):
+        text += f"{i}.| Назва: {product['name']}, ціна - {product['total_price']}, кількість букетів - {product['count']} \n"
+        order_price += product['total_price']
+        total_count += product['count']
+
+    return [text, order_price, total_count]
+
+
 @dp.callback_query(CallbackData("cart"))
 async def cart_handler(cq: CallbackQuery, user: User):
-    user = await User.get(uid=cq.from_user.id)
-
-    products_text = ""
-
-    for i, product in enumerate(user.cart, 1):
-        products_text += f"{i}.| Назва: {product['name']}, ціна - {product['total_price']}, кількість букетів - {product['count']} \n"
+    products_text, _, _ = get_products_text(user.cart)
 
     await cq.edit_text(
         "<b>💫 Кошик:</b>\n\n"
         "Ось ваші обрані товари:\n"
-        f"<blockquote>{products_text}</blockquote>"
+        f"<blockquote>{products_text if products_text else 'Ви ще не додали товари'}</blockquote>"
         "\n\n<b>Що далі?</b>\n"
         "1. Перевірте ваш кошик.\n"
-        "2. Якщо все вірно, натисніть 'Замовити'.",
+        "2. Якщо все вірно, натисніть «Замовити».",
         reply_markup=cart,
         parse_mode=ParseMode.HTML
     )
@@ -33,14 +38,28 @@ async def cart_handler(cq: CallbackQuery, user: User):
 
 @dp.callback_query(CallbackData("cart_order"))
 async def order_handler(cq: CallbackQuery, user: User):
-    user = await User.get(uid=cq.from_user.id)
+    _, order_price, total_count = get_products_text(user.cart)
 
-    order_price = 0
-    total_count = 0
+    if not total_count:
+        await cq.delete()
 
-    for i, product in enumerate(user.cart, 1):
-        order_price += product['total_price']
-        total_count += product['count']
+        text = (
+            "<b>🙉 Дорогий друже, вітаю тебе!</b>\n\n"
+            "🌺 Я спеціалізуюсь на замовленнях квітів! Ми пропонуємо широкий асортимент квіткових композицій, які можуть стати чудовим подарунком для будь-якої події.\n\n"
+            "Квіти завжди були символом любові, ніжності та поваги, тому ми прагнемо забезпечити найвищу якість обслуговування та доставку квітів.\n\n"
+            "<blockquote>💡 Перед замовленням не забудь вказати місто в налаштуваннях. Це дуже важливо, адже ми хочемо бути впевненими, що твоє замовлення буде доставлено вчасно і в потрібне місце. Завжди перевіряй, щоб усі дані були вказані правильно.</blockquote>\n\n"
+            "З радістю допоможемо тобі обрати найкращий букет! Якщо у тебе є які-небудь питання або потрібна допомога, не соромся звертатися до нашої служби підтримки.\n\n"
+            "Бажаємо тобі гарного дня та чудового настрою! 😊\n\n"
+            "З найкращими побажаннями, твоя команда з доставки квітів."
+        )
+        await cq.ctx_api.send_message(
+            chat_id=cq.chat_id,
+            text=text,
+            reply_markup=menu,
+            parse_mode=ParseMode.HTML
+        )
+        await cq.answer("У вас немає товарів в корзині!\nПерехід в меню...")
+        return
 
     await cq.edit_text(
         "<b>💫 Ваше замовлення:</b>\n\n"
@@ -58,17 +77,7 @@ async def order_handler(cq: CallbackQuery, user: User):
 
 @dp.callback_query(CallbackData("cart_order_confirm"))
 async def order_confirm_handler(cq: CallbackQuery, user: User):
-    user = await User.get(uid=cq.from_user.id)
-    
-    order_price = 0
-    total_count = 0
-
-    cart_text = ""
-    
-    for i, product in enumerate(user.cart, 1):
-        cart_text += f"{i}.| Назва: {product['name']}, ціна - {product['total_price']}, кількість букетів - {product['count']} \n"
-        order_price += product['total_price']
-        total_count += product['count']
+    cart_text, order_price, total_count = get_products_text(user.cart)
 
     current_time = datetime.datetime.now().isoformat()
     user.order.append({
@@ -86,12 +95,11 @@ async def order_confirm_handler(cq: CallbackQuery, user: User):
         reply_markup=menu,
         parse_mode=ParseMode.HTML
     )
+    await cq.answer()
 
 
 @dp.callback_query(CallbackData("cart_remove_all"))
 async def cart_remove_all_handler(cq: CallbackQuery, user: User):
-    user = await User.get(uid=cq.from_user.id)
-
     user.cart = []
     await user.save()
 
