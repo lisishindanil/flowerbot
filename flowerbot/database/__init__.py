@@ -1,4 +1,4 @@
 from .user import User
-from .flower import Flower
+from .catalog import Catalog
 
-__all__ = ['User', 'Flower']
+__all__ = ['User', 'Catalog']

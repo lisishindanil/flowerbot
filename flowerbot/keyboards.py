@@ -27,3 +27,18 @@ cart = (
     .add(InlineButton("↩️ Назад", callback_data="menu"))
 ).get_markup()
 
+
+catalog_nav = (
+    InlineKeyboard()
+    .add(InlineButton("⬅️ Попередня", callback_data="catalog_nav_prev"))
+    .add(InlineButton("️🔥 Хочу!", callback_data="catalog_nav_choose"))
+    .add(InlineButton("➡️ Наступна", callback_data="catalog_nav_next"))
+    .row()
+    .add(InlineButton("↩️ Назад", callback_data="menu"))
+).get_markup()
+
+cart_order = (
+    InlineKeyboard()
+    .add(InlineButton("↩️ Назад", callback_data="cart"))
+    .add(InlineButton("💳 Оформити", callback_data="cart_order_confirm"))
+).get_markup()

@@ -28,6 +28,8 @@ async def start_handler(message: Message):
 
 @dp.callback_query(CallbackData("menu"))
 async def menu_handler(cq: CallbackQuery):
+    await cq.delete()
+
     text = (
         "<b>🙉 Дорогий друже, вітаю тебе!</b>\n\n"
         "🌺 Я спеціалізуюсь на замовленнях квітів! Ми пропонуємо широкий асортимент квіткових композицій, які можуть стати чудовим подарунком для будь-якої події.\n\n"
@@ -37,10 +39,9 @@ async def menu_handler(cq: CallbackQuery):
         "Бажаємо тобі гарного дня та чудового настрою! 😊\n\n"
         "З найкращими побажаннями, твоя команда з доставки квітів."
     )
-
-    await cq.edit_text(
-        text,
+    await cq.ctx_api.send_message(
+        chat_id=cq.chat_id,
+        text=text,
         reply_markup=menu,
         parse_mode=ParseMode.HTML
     )
-    await cq.answer()
