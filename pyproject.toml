@@ -10,6 +10,7 @@ python = "^3.12"
 mubble = "^1.1.0"
 tortoise-orm = "^0.21.3"
 aioowm = "^2.0.1"
+pypika = "^0.48.9"
 
 
 [build-system]

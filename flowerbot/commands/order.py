@@ -12,7 +12,7 @@ dp = Dispatch()
 def get_products_text(cart: list[dict]) -> list[str, int | float, int | float]:
     text, order_price, total_count = "", 0, 0
     for i, product in enumerate(cart, 1):
-        text += f"{i}.| Назва: {product['name']}, ціна - {product['total_price']}, кількість букетів - {product['count']} \n"
+        text += f"{i}. «{product['name']}» ціна за (х{product['count']}): {product['total_price']}₴\n"
         order_price += product['total_price']
         total_count += product['count']
 
@@ -95,6 +95,15 @@ async def order_confirm_handler(cq: CallbackQuery, user: User):
         reply_markup=menu,
         parse_mode=ParseMode.HTML
     )
+
+    # TODO: Make this interface for manager
+    # manager_id = 1234567890
+    # manager_text = (
+    #     "💐 <b>Нове замовлення!</b>\n"
+    #     f"Користувач: <a href='tg://user?id={cq.from_user.id}'>{cq.from_user.first_name}</a>\n"
+    #     "Замовлення: Type details here..."
+    # )
+    # await cq.ctx_api.send_message(manager_id, manager_text, parse_mode=ParseMode.HTML)
     await cq.answer()
 
 

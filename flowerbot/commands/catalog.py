@@ -36,20 +36,21 @@ async def catalog_handler(cq: CallbackQuery):
 
 @dp.callback_query(CallbackData("catalog_nav_prev") | CallbackData("catalog_nav_next"))
 async def catalog_nav_prev_handler(cq: CallbackQuery, user: User):
-    catalog = await Catalog.get(id=user_pages[cq.from_user.id])
     flowers_count = len(await Catalog.all())
 
     if (
-            user_pages[cq.from_user.id] == 1
-            or flowers_count - user_pages[cq.from_user.id] == 0
+            cq.data.unwrap() == "catalog_nav_prev" and user_pages[cq.from_user.id] == 1
+            or cq.data.unwrap() == "catalog_nav_next" and flowers_count - user_pages[cq.from_user.id] == 0
     ):
-        await cq.answer("Ви не можете перейти назад")
+        await cq.answer("Ви виходите за межі!")
         return
-    if cq.data == "catalog_nav_prev":
+
+    if cq.data.unwrap() == "catalog_nav_prev":
         user_pages[cq.from_user.id] -= 1
-    else:
+    elif cq.data.unwrap() == "catalog_nav_next":
         user_pages[cq.from_user.id] += 1
 
+    catalog = await Catalog.get(id=user_pages[cq.from_user.id])
     text = (
         f"🌷 <b>Сторінка {user_pages[cq.from_user.id]}/{flowers_count}</b>\n\n"
         f"Назва: <b>{catalog.name}</b>\n"
