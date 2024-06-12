@@ -5,6 +5,8 @@ menu = (
     .add(InlineButton("🌷 Каталог квітів", callback_data="catalog"))
     .add(InlineButton("🛒 Кошик", callback_data="cart"))
     .row()
+    .add(InlineButton("🤖 Помічник зі штучним інтелектом", callback_data="ai_helper"))
+    .row()
     .add(InlineButton("⚙️ Налаштування", callback_data="settings"))
 ).get_markup()
 
@@ -15,6 +17,13 @@ back_to_menu = (
 settings = (
     InlineKeyboard()
     .add(InlineButton("🏡 Редагувати дані доставки", callback_data="settings_city"))
+    .row()
+    .add(InlineButton("↩️ Назад", callback_data="menu"))
+).get_markup()
+
+ai_helper = (
+    InlineKeyboard()
+    .add(InlineButton("💫 ...", callback_data="da"))
     .row()
     .add(InlineButton("↩️ Назад", callback_data="menu"))
 ).get_markup()
