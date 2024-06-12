@@ -21,13 +21,6 @@ settings = (
     .add(InlineButton("↩️ Назад", callback_data="menu"))
 ).get_markup()
 
-ai_helper = (
-    InlineKeyboard()
-    .add(InlineButton("💫 ...", callback_data="da"))
-    .row()
-    .add(InlineButton("↩️ Назад", callback_data="menu"))
-).get_markup()
-
 cart = (
     InlineKeyboard()
     .add(InlineButton("🧹 Очистити кошик", callback_data="cart_remove_all"))

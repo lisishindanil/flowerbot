@@ -9,6 +9,7 @@ flowerbot_assistant_template = """
 На початку відповіді ти повинен ставити 🌷"
 
 Питання користувача: {question}
+Каталог: {catalog}
 Відповідь:"""
 
 flowerbot_assitant_prompt = PromptTemplate(
